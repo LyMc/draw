@@ -10,19 +10,25 @@
         }
         #app {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 90vh;
+            position: relative;
         }
         #canvas {
             background-color: #fff;
+        }
+        #clearAll {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
         }
     </style>
 </head>
 <body>
 <div id="app">
     <canvas id="canvas"></canvas>
+    <button id="clearAll">Clear All</button>
 </div>
+<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
 <script src="index.js"></script>
 </body>
 </html>
