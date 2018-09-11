@@ -13,16 +13,18 @@
 		canvasEl.width = width = window.innerWidth
 		canvasEl.height = height = window.innerHeight
 	})
-	canvasEl.addEventListener('mousedown', () => {
+	const onStart = () => {
 		isClicked = true
-	})
-	canvasEl.addEventListener('mouseup', () => {
+	}
+	const onEnd = () => {
 		isClicked = false
 		wasClicked = false
-	})
-	canvasEl.addEventListener('mousemove', (e) => {
-		const x = e.clientX - e.target.offsetLeft
-		const y = e.clientY - e.target.offsetTop
+	}
+	const onMove = (e) => {
+		e.preventDefault()
+		const c = e.type === 'touchmove' ? e.touches[0] : e
+		const x = c.clientX
+		const y = c.clientY
 		if (isClicked && wasClicked) {
 			paths[last].push(x, y)
 		} else if (isClicked) {
@@ -30,7 +32,13 @@
 			paths[last] = [x, y]
 			wasClicked = true
 		}
-	})
+	}
+	canvasEl.addEventListener('mousedown', onStart)
+	canvasEl.addEventListener('touchstart', onStart)
+	canvasEl.addEventListener('mouseup', onEnd)
+	canvasEl.addEventListener('touchend', onEnd)
+	canvasEl.addEventListener('mousemove', onMove)
+	canvasEl.addEventListener('touchmove', onMove)
 	function draw () {
 		ctx.clearRect(0, 0, width, height)
 		ctx.beginPath()
